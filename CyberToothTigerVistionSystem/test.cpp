@@ -10,7 +10,7 @@
 using namespace std;
 using namespace cv;
 
-int main() {
+int vision() {
 
     namedWindow("Frame", WINDOW_NORMAL);
     setWindowProperty("Frame", WND_PROP_FULLSCREEN, WINDOW_FULLSCREEN);
