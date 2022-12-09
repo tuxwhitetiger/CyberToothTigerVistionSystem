@@ -5,15 +5,15 @@
 #include "/usr/local/include/opencv4/opencv2/core.hpp"
 #include "/usr/local/include/opencv4/opencv2/imgproc.hpp"
 #include "/usr/local/include/opencv4/opencv2/highgui.hpp"
-
+#include <iostream>
 
 using namespace std;
 using namespace cv;
 
-int vision() {
+int main() {
 
-    cv::namedWindow("Frame", WINDOW_NORMAL);
-    cv::setWindowProperty("Frame", WND_PROP_FULLSCREEN, WINDOW_FULLSCREEN);
+    namedWindow("Frame", WINDOW_NORMAL);
+    setWindowProperty("Frame", WND_PROP_FULLSCREEN, WINDOW_FULLSCREEN);
 
 
     // Create a VideoCapture object and open the input file
@@ -25,8 +25,8 @@ int vision() {
     cap_right.set(CAP_PROP_FRAME_WIDTH, 1280);
     cap_right.set(CAP_PROP_FRAME_HEIGHT, 720);
 
-
     //3d offset
+
     Point dddoffset;
     dddoffset.x = -50;
     dddoffset.y = 50;
@@ -37,22 +37,22 @@ int vision() {
     testTextorg.y = 350;
 
 
-    cv::Mat output;
+    Mat output;
 
     // Check if camera opened successfully
     if (!cap_left.isOpened()) {
-        //cout << "Error opening left video stream or file" << endl;
+        cout << "Error opening left video stream or file" << endl;
         return -1;
     }
     if (!cap_right.isOpened()) {
-        //cout << "Error opening right video stream or file" << endl;
+        cout << "Error opening right video stream or file" << endl;
         return -1;
     }
 
 
     while (1) {
-        cv::Mat left;
-        cv::Mat right;
+        Mat left;
+        Mat right;
         // Capture frame-by-frame
         cap_left.read(left);
         cap_right.read(right);
@@ -64,10 +64,10 @@ int vision() {
         //join both camera images
         hconcat(left, right, output);
 
-        putText(output, "test text", testTextorg , 1, 1.6, (255, 255, 255), 1, 8, false);
+        putText(output, "test text", testTextorg, 1, 1.6, (255, 255, 255), 1, 8, false);
         Point testTextrightorg = testTextorg;
         testTextrightorg.x += 1280 + dddoffset.x;
-        putText(output, "test text", testTextrightorg , 1, 1.6, (255, 255, 255), 1, 8, false);
+        putText(output, "test text", testTextrightorg, 1, 1.6, (255, 255, 255), 1, 8, false);
 
         // Display the resulting frame
         imshow("Frame", output);
