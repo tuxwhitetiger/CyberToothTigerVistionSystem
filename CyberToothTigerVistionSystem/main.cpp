@@ -43,7 +43,7 @@ int main()
             std::cout << "seperator found at:" << confline.find(':') << '\n';
             //split into permaiter and value
             string peramitor = confline.substr(0, confline.find(':'));
-            string value = confline.substr(confline.find(':'), confline.size()-1);
+            string value = confline.substr(confline.find(':')+1, confline.size()-1);
             //turn input into hashed int
             int configParmSwitch = configParmsMap.find(peramitor)->second;
             //switch on the peramiter
