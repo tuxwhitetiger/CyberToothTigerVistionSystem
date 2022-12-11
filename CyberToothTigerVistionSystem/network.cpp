@@ -53,7 +53,7 @@ public: int teststring(std::string tosend, std::string reply) {
     return 0;
 }
 
-public: int close() {
+public: int myclose() {
         // closing the connected socket
         close(client_fd);
         return 0;
