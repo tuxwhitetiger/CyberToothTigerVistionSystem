@@ -34,16 +34,16 @@ int main()
             std::cout << "read from file:" << confline << " pos: " << confFile.tellg() << '\n';
 
             //confline now contains the peramitor name and value
-            int seperatorpos;
-            if (confline.find_first_of(':', seperatorpos) != std::string::npos) {
+            
+            if (confline.find(':') != std::string::npos) {
                 //need to throw bigger error
                 printf("invalid line in config file");
                 printf(confline.c_str());
             }
-            std::cout << "seperator found at:" << seperatorpos << '\n';
+            std::cout << "seperator found at:" << confline.find(':') << '\n';
             //split into permaiter and value
-            string peramitor = confline.substr(0, seperatorpos);
-            string value = confline.substr(seperatorpos, confline.size()-1);
+            string peramitor = confline.substr(0, confline.find(':'));
+            string value = confline.substr(confline.find(':'), confline.size()-1);
             //turn input into hashed int
             int configParmSwitch = configParmsMap.find(peramitor)->second;
             //switch on the peramiter
