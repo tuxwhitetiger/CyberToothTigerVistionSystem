@@ -83,7 +83,8 @@ int main()
     std::string testmsg = "test1";
     std::string testresponce = "";
     network.teststring(testmsg, testresponce);
-    std::thread networkThread(network, NetworkIPValue.c_str(), NetworkPort);
+    network.setup(NetworkIPValue.c_str(), NetworkPort);
+    std::thread networkThread(network);
     std::thread visionThread(vision,CameraLeftDevice, CameraRightDevice, CameraWidth, CameraHight);
     testmsg = "test2";
     network.teststring(testmsg, testresponce);

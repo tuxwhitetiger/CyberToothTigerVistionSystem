@@ -12,11 +12,13 @@ class networkclass {
     int sock, valread, client_fd;
     struct sockaddr_in serv_addr;
     char buffer[1024] = { 0 };
-
-public: int network(const char* ServerIP, int Serversock)
+public: int setup(const char* ServerIP, int Serversock)
+{
+    IP = ServerIP;
+    sock = Serversock;
+}
+public: int main()
     {
-        IP = ServerIP;
-        sock = Serversock;
         if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
             printf("\n Socket creation error \n");
             return -1;
