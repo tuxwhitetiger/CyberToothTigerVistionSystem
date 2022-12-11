@@ -7,9 +7,13 @@
 #include "display.cpp"
 #include "network.cpp"
 
+
+
+
 int main()
 {
     printf("hello from %s!\n", "CyberToothTigerVistionSystem");
+    networkclass network;
 
     std::ifstream confFile; confFile.open("VisionSystem.conf");
     std::string confline;
@@ -76,12 +80,16 @@ int main()
 
         }
     }
-    std::thread networkThread(network,NetworkIPValue.c_str(), NetworkPort);
+    std::string testmsg = "test1";
+    std::string testresponce = "";
+    network.teststring(testmsg, testresponce);
+    std::thread networkThread(network, NetworkIPValue.c_str(), NetworkPort);
     std::thread visionThread(vision,CameraLeftDevice, CameraRightDevice, CameraWidth, CameraHight);
-
+    testmsg = "test2";
+    network.teststring(testmsg, testresponce);
     while (1) {
         //wana cheack to see if threads crash out and if so re launch
-
+        /*
         if (networkThread.joinable()) {
             std::cout << "network Thread running:True" << '\n';
         }
@@ -94,6 +102,7 @@ int main()
         else{
             std::cout << "vision Thread not running:False" << '\n';
         }
+        */
     }
 
     return 0;

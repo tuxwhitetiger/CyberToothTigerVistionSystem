@@ -1,52 +1,61 @@
 #include <arpa/inet.h>
 #include <stdio.h>
-#include <string.h>
+#include <cstring>
+#include <cstdio>
+#include <iostream>
+#include <fstream>
 #include <sys/socket.h>
 #include <unistd.h>
-#define PORT 9090
 
-const char* IP;
-int sock, valread, client_fd;
-struct sockaddr_in serv_addr;
-char buffer[1024] = { 0 };
+class networkclass {
+    const char* IP;
+    int sock, valread, client_fd;
+    struct sockaddr_in serv_addr;
+    char buffer[1024] = { 0 };
 
-int network(const char* ServerIP, int Serversock)
-{
-    IP = ServerIP;
-    sock = Serversock;
-    if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
-        printf("\n Socket creation error \n");
-        return -1;
+public: int network(const char* ServerIP, int Serversock)
+    {
+        IP = ServerIP;
+        sock = Serversock;
+        if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
+            printf("\n Socket creation error \n");
+            return -1;
+        }
+
+        serv_addr.sin_family = AF_INET;
+        serv_addr.sin_port = htons(sock);
+
+        // Convert IPv4 and IPv6 addresses from text to binary form
+        if (inet_pton(AF_INET, IP, &serv_addr.sin_addr)
+            <= 0) {
+            printf(
+                "\nInvalid address/ Address not supported \n");
+            return -2;
+        }
+
+        if ((client_fd = connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr))) < 0) {
+            printf("\nConnection Failed \n");
+            return -3;
+        }
+        return 0;
     }
 
-    serv_addr.sin_family = AF_INET;
-    serv_addr.sin_port = htons(PORT);
-
-    // Convert IPv4 and IPv6 addresses from text to binary form
-    if (inet_pton(AF_INET, IP, &serv_addr.sin_addr)
-        <= 0) {
-        printf(
-            "\nInvalid address/ Address not supported \n");
-        return -2;
+public: int sendstring(char* tosend, char* reply) {
+        send(sock, tosend, strlen(tosend), 0);
+        printf("Hello message sent\n");
+        valread = read(sock, reply, 1024);
+        printf("%s\n", reply);
+        return 0;
     }
-
-    if ((client_fd = connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr)))< 0) {
-        printf("\nConnection Failed \n");
-        return -3;
-    }
+public: int teststring(std::string tosend, std::string reply) {
+    std::string massage = "recived" + tosend + " and yeap i got it";
+    reply = massage;
     return 0;
 }
 
-int sendstring(char* tosend, char* reply) {
-    send(sock, tosend, strlen(tosend), 0);
-    printf("Hello message sent\n");
-    valread = read(sock, reply, 1024);
-    printf("%s\n", reply);
-    return 0;
-}
-
-int close() {
-    // closing the connected socket
-    close(client_fd);
-    return 0;
-}
+public: int close() {
+        // closing the connected socket
+        close(client_fd);
+        return 0;
+    }
+};
