@@ -81,6 +81,19 @@ int main()
 
     while (1) {
         //wana cheack to see if threads crash out and if so re launch
+
+        if (networkThread.joinable()) {
+            std::cout << "network Thread running:True" << '\n';
+        }
+        else {
+            std::cout << "network Thread not running:False" << '\n';
+        }
+        if (visionThread.joinable()) {
+            std::cout << "vision Thread running:True" << '\n';
+        }
+        else{
+            std::cout << "vision Thread not running:False" << '\n';
+        }
     }
 
     return 0;
