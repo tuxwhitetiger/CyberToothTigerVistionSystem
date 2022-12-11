@@ -5,17 +5,20 @@
 #include <unistd.h>
 #define PORT 9090
 
-const char* IP = "127.0.0.1";
-int sock = 0, valread, client_fd;
+const char* IP;
+int sock, valread, client_fd;
 struct sockaddr_in serv_addr;
 char buffer[1024] = { 0 };
 
-int network()
+int network(const char* ServerIP, int Serversock)
 {
+    IP = ServerIP;
+    sock = Serversock;
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
         printf("\n Socket creation error \n");
         return -1;
     }
+
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_port = htons(PORT);
 
@@ -26,6 +29,7 @@ int network()
             "\nInvalid address/ Address not supported \n");
         return -2;
     }
+
     if ((client_fd = connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr)))< 0) {
         printf("\nConnection Failed \n");
         return -3;

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
+#include <thread>
 #include <map>
 #include "display.cpp"
 #include "network.cpp"
@@ -30,44 +31,51 @@ int main()
     if (confFile.is_open()) {
         while (confFile) {
             std::getline(confFile, confline);
-            std::cout << confline << ": " << confFile.tellg() << '\n';
+            std::cout << "read from file:" << confline << " pos: " << confFile.tellg() << '\n';
 
             //confline now contains the peramitor name and value
             int seperatorpos;
             if (confline.find_first_of(':', seperatorpos) != std::string::npos) {
+                //need to throw bigger error
                 printf("invalid line in config file");
                 printf(confline.c_str());
             }
-
+            std::cout << "seperator found at:" << seperatorpos << '\n';
             //split into permaiter and value
             string peramitor = confline.substr(0, seperatorpos);
-            string value = confline.substr(seperatorpos, confline.size());
+            string value = confline.substr(seperatorpos, confline.size()-1);
             //turn input into hashed int
             int configParmSwitch = configParmsMap.find(peramitor)->second;
             //switch on the peramiter
             switch (configParmSwitch) {
-            case 1: // Network-IP
-                NetworkIPValue = value;
+                case 1: // Network-IP
+                    NetworkIPValue = value;
                 break; 
-            case 2: // Network-Port
-                NetworkPort = atoi(value.c_str());
+                case 2: // Network-Port
+                    NetworkPort = atoi(value.c_str());
                 break;
-            case 3: // Camera-LeftDevice
-                CameraLeftDevice = atoi(value.c_str());
+                case 3: // Camera-LeftDevice
+                    CameraLeftDevice = atoi(value.c_str());
                 break;
-            case 4: // Camera-RightDevice
-                CameraRightDevice = atoi(value.c_str());
+                case 4: // Camera-RightDevice
+                    CameraRightDevice = atoi(value.c_str());
                 break;
-            case 5: // Camera-Width
-                CameraWidth = atoi(value.c_str());
+                case 5: // Camera-Width
+                    CameraWidth = atoi(value.c_str());
                 break;
-            case 6: // Camera-Hight
-                CameraHight = atoi(value.c_str());
+                case 6: // Camera-Hight
+                    CameraHight = atoi(value.c_str());
                 break;
             }
+
         }
     }
+    std::thread networkThread(network,NetworkIPValue.c_str(), NetworkPort);
+    std::thread visionThread(vision,CameraLeftDevice, CameraRightDevice, CameraWidth, CameraHight);
 
-    vision();
+    while (1) {
+        //wana cheack to see if threads crash out and if so re launch
+    }
+
     return 0;
 }

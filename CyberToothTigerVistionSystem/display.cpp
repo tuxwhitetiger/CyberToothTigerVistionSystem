@@ -10,7 +10,16 @@
 using namespace std;
 using namespace cv;
 
-int vision() {
+int CameraLeftDevice, CameraRightDevice, CameraWidth, CameraHight;
+
+int vision(int CameraLeftDeviceinput, int CameraRightDeviceinput, int CameraWidthinput, int CameraHightinput) {
+
+    CameraLeftDevice = CameraLeftDeviceinput;
+    CameraRightDevice = CameraRightDeviceinput;
+    CameraWidth = CameraWidthinput;
+    CameraHight = CameraHightinput;
+
+
 
     namedWindow("Frame", WINDOW_NORMAL);
     setWindowProperty("Frame", WND_PROP_FULLSCREEN, WINDOW_FULLSCREEN);
@@ -18,12 +27,12 @@ int vision() {
 
     // Create a VideoCapture object and open the input file
     // If the input is the web camera, pass 0 instead of the video file name
-    VideoCapture cap_left(1);
-    cap_left.set(CAP_PROP_FRAME_WIDTH, 1280);
-    cap_left.set(CAP_PROP_FRAME_HEIGHT, 720);
-    VideoCapture cap_right(3);
-    cap_right.set(CAP_PROP_FRAME_WIDTH, 1280);
-    cap_right.set(CAP_PROP_FRAME_HEIGHT, 720);
+    VideoCapture cap_left(CameraLeftDevice);
+    cap_left.set(CAP_PROP_FRAME_WIDTH, CameraWidthinput);
+    cap_left.set(CAP_PROP_FRAME_HEIGHT, CameraHightinput);
+    VideoCapture cap_right(CameraRightDevice);
+    cap_right.set(CAP_PROP_FRAME_WIDTH, CameraWidthinput);
+    cap_right.set(CAP_PROP_FRAME_HEIGHT, CameraHightinput);
 
     //3d offset
 
