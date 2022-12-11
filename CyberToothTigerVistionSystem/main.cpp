@@ -34,8 +34,8 @@ int main()
             std::cout << "read from file:" << confline << " pos: " << confFile.tellg() << '\n';
 
             //confline now contains the peramitor name and value
-            
-            if (confline.find(':') != std::string::npos) {
+            size_t pos = 0;
+            if ((pos=confline.find(':')) != std::string::npos) {
                 //need to throw bigger error
                 printf("invalid line in config file");
                 printf(confline.c_str());
@@ -50,21 +50,27 @@ int main()
             switch (configParmSwitch) {
                 case 1: // Network-IP
                     NetworkIPValue = value;
+                    std::cout << "set NetworkIPValue:" << value << '\n';
                 break; 
                 case 2: // Network-Port
                     NetworkPort = atoi(value.c_str());
+                    std::cout << "set NetworkPortValue:" << value << '\n';
                 break;
                 case 3: // Camera-LeftDevice
                     CameraLeftDevice = atoi(value.c_str());
+                    std::cout << "set CameraLeftDeviceValue:" << value << '\n';
                 break;
                 case 4: // Camera-RightDevice
                     CameraRightDevice = atoi(value.c_str());
+                    std::cout << "set CameraRightDeviceValue:" << value << '\n';
                 break;
                 case 5: // Camera-Width
                     CameraWidth = atoi(value.c_str());
+                    std::cout << "set CameraWidthValue:" << value << '\n';
                 break;
                 case 6: // Camera-Hight
                     CameraHight = atoi(value.c_str());
+                    std::cout << "set CameraHightValue:" << value << '\n';
                 break;
             }
 
