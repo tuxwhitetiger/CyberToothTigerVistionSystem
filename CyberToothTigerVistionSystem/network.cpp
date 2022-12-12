@@ -22,10 +22,10 @@ public: int setup(std::string ServerIP, int Serversock)
     IP = ServerIP.c_str();
     sock = Serversock;
     std::cout <<"IP:" << IP << ":" << sock << '\n';
-    std::thread networkThread(network, ServerIP.c_str(), sock, client_fd);
+    std::thread networkThread(network, ServerIP, sock, client_fd);
     networkThread.detach();
 }
-int static network(const char* IP, int sock,int client_fd)
+int static network(std::string IP, int sock,int client_fd)
     {
         while (1) {
             struct sockaddr_in serv_addr;
