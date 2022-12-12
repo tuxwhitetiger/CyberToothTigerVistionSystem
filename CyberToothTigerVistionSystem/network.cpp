@@ -73,7 +73,7 @@ public: std::string teststring(std::string tosend) {
 
 public: int myclose() {
         // closing the connected socket
-        close(client_fd);
+        //close(client_fd);
         return 0;
     }
 };
