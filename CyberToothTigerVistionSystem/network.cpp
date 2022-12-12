@@ -61,10 +61,9 @@ public: int sendstring(char* tosend, char* reply) {
         printf("%s\n", reply);
         return 0;
     }
-public: int teststring(std::string tosend, std::string reply) {
+public: std::string teststring(std::string tosend) {
     std::string massage = "recived" + tosend + " and yeap i got it";
-    reply = massage;
-    return 0;
+    return massage;
 }
 
 public: int myclose() {

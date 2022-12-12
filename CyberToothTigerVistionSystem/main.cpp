@@ -75,15 +75,15 @@ int main()
 
 
     std::string testmsg = "test1";
-    std::string testresponce = "";
+    std::string testresponce = "blank";
     
-    network.teststring(testmsg, testresponce);
+    testresponce = network.teststring(testmsg);
     std::cout << testresponce;
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     network.setup(NetworkIPValue, NetworkPort);
-        
+    
     testmsg = "test2";
-    network.teststring(testmsg, testresponce);
+    testresponce = network.teststring(testmsg);
     std::cout << testresponce;
 
     std::thread visionThread(vision,CameraLeftDevice, CameraRightDevice, CameraWidth, CameraHight);
