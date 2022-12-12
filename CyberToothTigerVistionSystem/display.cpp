@@ -24,14 +24,7 @@ class display {
     
 
 
-    int show(int CameraLeftDeviceinput, int CameraRightDeviceinput, int CameraWidthinput, int CameraHightinput) {
-
-        CameraLeftDevice = CameraLeftDeviceinput;
-        CameraRightDevice = CameraRightDeviceinput;
-        CameraWidth = CameraWidthinput;
-        CameraHight = CameraHightinput;
-
-
+    int static show(int CameraLeftDeviceinput, int CameraRightDeviceinput, int CameraWidthinput, int CameraHightinput) {
 
         namedWindow("Frame", WINDOW_NORMAL);
         setWindowProperty("Frame", WND_PROP_FULLSCREEN, WINDOW_FULLSCREEN);
