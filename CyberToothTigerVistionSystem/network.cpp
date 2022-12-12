@@ -30,29 +30,27 @@ int static network(std::string IP, int mysock)
     int client_fd;
         int sock = mysock;
         while (1) {
-            std::cout <<"test"<< IP << ":" << sock << '\n';
+            start:
             struct sockaddr_in serv_addr;
-
+            std::this_thread::sleep_for(std::chrono::milliseconds(2000));
             if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
                 printf("\n Socket creation error \n");
-                return -1;
+                goto start;
             }
-            std::cout << "test2" << IP << ":" << sock << '\n';
             serv_addr.sin_family = AF_INET;
             serv_addr.sin_port = htons(sock);
-            std::cout << "test3" << IP << ":" << sock << '\n';
 
             // Convert IPv4 and IPv6 addresses from text to binary form
             if (inet_pton(AF_INET, IP.c_str(), &serv_addr.sin_addr) <= 0) {
                 printf("\nInvalid address/ Address not supported \n");
                 std::cout << IP << ":" << sock << '\n';
-                return -2;
+                goto start;
             }
 
             if ((client_fd = connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr))) < 0) {
                 printf("\nConnection Failed \n");
                 std::cout << IP << ":" << sock <<'\n';
-                return -3;
+                goto start;
             }
             //send resive wait loop
             std::this_thread::sleep_for(std::chrono::milliseconds(2000));
