@@ -23,7 +23,7 @@ public: int setup(std::string ServerIP, int Serversock)
     sock = Serversock;
     std::thread networkThread(network,IP, sock, serv_addr, client_fd);
 }
-int static network(char* IP, int sock, sockaddr_in serv_addr,int client_fd)
+int static network(const char* IP, int sock, sockaddr_in serv_addr,int client_fd)
     {
         while (1) {
             if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
