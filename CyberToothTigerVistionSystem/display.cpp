@@ -32,10 +32,10 @@ class display {
 
         // Create a VideoCapture object and open the input file
         // If the input is the web camera, pass 0 instead of the video file name
-        VideoCapture cap_left(CameraLeftDevice);
+        VideoCapture cap_left(CameraLeftDeviceinput);
         cap_left.set(CAP_PROP_FRAME_WIDTH, CameraWidthinput);
         cap_left.set(CAP_PROP_FRAME_HEIGHT, CameraHightinput);
-        VideoCapture cap_right(CameraRightDevice);
+        VideoCapture cap_right(CameraRightDeviceinput);
         cap_right.set(CAP_PROP_FRAME_WIDTH, CameraWidthinput);
         cap_right.set(CAP_PROP_FRAME_HEIGHT, CameraHightinput);
 
