@@ -10,13 +10,13 @@
 #include <thread>
 
 class networkclass {
-    static const char* IP;
+    static char* IP;
     static int sock, valread, client_fd;
     static struct sockaddr_in serv_addr;
     static char buffer[2048];
     
 
-public: int setup(const char* ServerIP, int Serversock)
+public: int setup(char* ServerIP, int Serversock)
 {
     IP = ServerIP;
     sock = Serversock;
