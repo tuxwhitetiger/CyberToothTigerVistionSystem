@@ -21,7 +21,7 @@ public: int setup(std::string ServerIP, int Serversock)
 {
     IP = ServerIP.c_str();
     sock = Serversock;
-    std::thread networkThread(network,IP, sock, serv_addr, client_fd);
+    std::thread networkThread(network, ServerIP.c_str(), sock, serv_addr, client_fd);
     networkThread.detach();
 }
 int static network(const char* IP, int sock, sockaddr_in serv_addr,int client_fd)
@@ -36,15 +36,15 @@ int static network(const char* IP, int sock, sockaddr_in serv_addr,int client_fd
             serv_addr.sin_port = htons(sock);
 
             // Convert IPv4 and IPv6 addresses from text to binary form
-            if (inet_pton(AF_INET, IP, &serv_addr.sin_addr)
-                <= 0) {
-                printf(
-                    "\nInvalid address/ Address not supported \n");
+            if (inet_pton(AF_INET, IP, &serv_addr.sin_addr) <= 0) {
+                printf("\nInvalid address/ Address not supported \n");
+                std::cout << IP << '\n';
                 return -2;
             }
 
             if ((client_fd = connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr))) < 0) {
                 printf("\nConnection Failed \n");
+                std::cout << IP << ":" << sock <<'\n';
                 return -3;
             }
             //send resive wait loop
