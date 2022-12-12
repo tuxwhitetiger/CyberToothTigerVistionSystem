@@ -22,6 +22,7 @@ public: int setup(std::string ServerIP, int Serversock)
     IP = ServerIP.c_str();
     sock = Serversock;
     std::thread networkThread(network,IP, sock, serv_addr, client_fd);
+    networkThread.detach();
 }
 int static network(const char* IP, int sock, sockaddr_in serv_addr,int client_fd)
     {
