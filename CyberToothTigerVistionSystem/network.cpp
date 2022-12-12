@@ -11,10 +11,10 @@
 #include <cstring>
 
 class networkclass {
-    static const char* IP;
-    static int sock, valread, client_fd;
-    static struct sockaddr_in serv_addr;
-    static char buffer[2048];
+public: static const char* IP;
+public: static int sock, valread, client_fd;
+public: static struct sockaddr_in serv_addr;
+public: static char buffer[2048];
     
 
 public: int setup(std::string ServerIP, int Serversock)
