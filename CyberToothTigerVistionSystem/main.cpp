@@ -79,6 +79,7 @@ int main()
     
     network.teststring(testmsg, testresponce);
     std::cout << testresponce;
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     network.setup(NetworkIPValue, NetworkPort);
         
     testmsg = "test2";
