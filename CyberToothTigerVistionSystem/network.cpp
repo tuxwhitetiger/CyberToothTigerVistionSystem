@@ -11,19 +11,19 @@
 #include <cstring>
 
 class networkclass {
-    static const char* IP;
-    static int sock, valread, client_fd;
-    static struct sockaddr_in serv_addr;
-    static char buffer[2048];
+    const char* IP;
+    int sock, valread, client_fd;
+    struct sockaddr_in serv_addr;
+    char buffer[2048];
     
 
 public: int setup(std::string ServerIP, int Serversock)
 {
     IP = ServerIP.c_str();
     sock = Serversock;
-    std::thread networkThread(network);
+    std::thread networkThread(network,IP, sock, serv_addr, client_fd);
 }
-int static network()
+int static network(char* IP, int sock, sockaddr_in serv_addr,int client_fd)
     {
         while (1) {
             if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
