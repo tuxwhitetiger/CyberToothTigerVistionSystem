@@ -28,6 +28,7 @@ public: int setup(std::string ServerIP, int Serversock)
 int static network(std::string IP, int sock,int client_fd)
     {
         while (1) {
+            std::cout <<"test"<< IP << ":" << sock << '\n';
             struct sockaddr_in serv_addr;
             if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
                 printf("\n Socket creation error \n");
