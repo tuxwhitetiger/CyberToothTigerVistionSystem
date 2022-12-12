@@ -78,11 +78,12 @@ int main()
     std::string testresponce = "";
     
     network.teststring(testmsg, testresponce);
+    std::cout << testresponce;
     network.setup(NetworkIPValue, NetworkPort);
         
     testmsg = "test2";
     network.teststring(testmsg, testresponce);
-
+    std::cout << testresponce;
 
     std::thread visionThread(vision,CameraLeftDevice, CameraRightDevice, CameraWidth, CameraHight);
     while (1) {
