@@ -13,7 +13,7 @@
 class networkclass {
     const char* IP;
     int sock, valread, client_fd;
-    struct sockaddr_in serv_addr;
+    
     char buffer[2048];
     
 
@@ -22,12 +22,13 @@ public: int setup(std::string ServerIP, int Serversock)
     IP = ServerIP.c_str();
     sock = Serversock;
     std::cout <<"IP:" << IP << ":" << sock << '\n';
-    std::thread networkThread(network, ServerIP.c_str(), sock, serv_addr, client_fd);
+    std::thread networkThread(network, ServerIP.c_str(), sock, client_fd);
     networkThread.detach();
 }
-int static network(const char* IP, int sock, sockaddr_in serv_addr,int client_fd)
+int static network(const char* IP, int sock,int client_fd)
     {
         while (1) {
+            struct sockaddr_in serv_addr;
             if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
                 printf("\n Socket creation error \n");
                 return -1;
