@@ -13,7 +13,7 @@
 int main()
 {
     printf("hello from %s!\n", "CyberToothTigerVistionSystem");
-    networkclass network;
+    
 
     std::ifstream confFile; confFile.open("VisionSystem.conf");
     std::string confline;
@@ -80,14 +80,19 @@ int main()
 
         }
     }
+
+
     std::string testmsg = "test1";
     std::string testresponce = "";
+    networkclass network;
     network.teststring(testmsg, testresponce);
     network.setup(NetworkIPValue, NetworkPort);
-    
-    std::thread visionThread(vision,CameraLeftDevice, CameraRightDevice, CameraWidth, CameraHight);
+        
     testmsg = "test2";
     network.teststring(testmsg, testresponce);
+
+
+    std::thread visionThread(vision,CameraLeftDevice, CameraRightDevice, CameraWidth, CameraHight);
     while (1) {
         //wana cheack to see if threads crash out and if so re launch
         /*
