@@ -13,7 +13,7 @@
 int main()
 {
     printf("hello from %s!\n", "CyberToothTigerVistionSystem");
-    
+    networkclass network;
 
     std::ifstream confFile; confFile.open("VisionSystem.conf");
     std::string confline;
@@ -35,16 +35,8 @@ int main()
     if (confFile.is_open()) {
         while (confFile) {
             std::getline(confFile, confline);
-            std::cout << "read from file:" << confline << " pos: " << confFile.tellg() << '\n';
-
-            //confline now contains the peramitor name and value
-            size_t pos = 0;
-            if ((pos=confline.find(':')) != std::string::npos) {
-                //need to throw bigger error
-                printf("invalid line in config file");
-                printf(confline.c_str());
-            }
-            std::cout << "seperator found at:" << confline.find(':') << '\n';
+            //std::cout << "read from file:" << confline << " pos: " << confFile.tellg() << '\n';
+            //std::cout << "seperator found at:" << confline.find(':') << '\n';
             //split into permaiter and value
             string peramitor = confline.substr(0, confline.find(':'));
             string value = confline.substr(confline.find(':')+1, confline.size()-1);
@@ -84,7 +76,7 @@ int main()
 
     std::string testmsg = "test1";
     std::string testresponce = "";
-    networkclass network;
+    
     network.teststring(testmsg, testresponce);
     network.setup(NetworkIPValue, NetworkPort);
         
