@@ -38,7 +38,7 @@ int static network(std::string IP, int sock,int client_fd)
             serv_addr.sin_port = htons(sock);
 
             // Convert IPv4 and IPv6 addresses from text to binary form
-            if (inet_pton(AF_INET, IP, &serv_addr.sin_addr) <= 0) {
+            if (inet_pton(AF_INET, IP.c_str(), &serv_addr.sin_addr) <= 0) {
                 printf("\nInvalid address/ Address not supported \n");
                 std::cout << IP << '\n';
                 return -2;
