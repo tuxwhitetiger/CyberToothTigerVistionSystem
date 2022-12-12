@@ -21,6 +21,7 @@ public: int setup(std::string ServerIP, int Serversock)
 {
     IP = ServerIP.c_str();
     sock = Serversock;
+    std::cout <<"IP:" << IP << ":" << sock << '\n';
     std::thread networkThread(network, ServerIP.c_str(), sock, serv_addr, client_fd);
     networkThread.detach();
 }

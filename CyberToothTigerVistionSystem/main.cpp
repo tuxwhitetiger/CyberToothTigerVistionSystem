@@ -78,13 +78,13 @@ int main()
     std::string testresponce = "blank";
     
     testresponce = network.teststring(testmsg);
-    std::cout << testresponce;
+    std::cout << testresponce << '\n';
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     network.setup(NetworkIPValue, NetworkPort);
     
     testmsg = "test2";
     testresponce = network.teststring(testmsg);
-    std::cout << testresponce;
+    std::cout << testresponce << '\n';
 
     std::thread visionThread(vision,CameraLeftDevice, CameraRightDevice, CameraWidth, CameraHight);
     while (1) {
