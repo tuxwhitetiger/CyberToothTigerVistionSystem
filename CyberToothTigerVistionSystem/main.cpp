@@ -14,6 +14,7 @@ int main()
 {
     printf("hello from %s!\n", "CyberToothTigerVistionSystem");
     networkclass network;
+    display vision;
 
     std::ifstream confFile; confFile.open("VisionSystem.conf");
     std::string confline;
@@ -72,21 +73,12 @@ int main()
 
         }
     }
-
-
-    std::string testmsg = "test1";
-    std::string testresponce = "blank";
-    
-    testresponce = network.teststring(testmsg);
-    std::cout << testresponce << '\n';
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    //spawn the network handeler
     network.setup(NetworkIPValue, NetworkPort);
-    
-    testmsg = "test2";
-    testresponce = network.teststring(testmsg);
-    std::cout << testresponce << '\n';
+    // need to add a while not ready once ther server side written
+    vision.setup(CameraLeftDevice, CameraRightDevice, CameraWidth, CameraHight);
 
-    std::thread visionThread(vision,CameraLeftDevice, CameraRightDevice, CameraWidth, CameraHight);
+
     while (1) {
         //wana cheack to see if threads crash out and if so re launch
         /*
@@ -102,6 +94,9 @@ int main()
         else{
             std::cout << "vision Thread not running:False" << '\n';
         }
+
+        then check for update from network and update display text
+
         */
     }
 

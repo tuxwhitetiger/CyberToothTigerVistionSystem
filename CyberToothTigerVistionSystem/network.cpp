@@ -15,6 +15,8 @@ class networkclass {
     int sock, valread;
     
     char buffer[2048];
+
+
     
 
 public: int setup(std::string ServerIP, int Serversock)
@@ -27,7 +29,7 @@ public: int setup(std::string ServerIP, int Serversock)
 }
 int static network(std::string IP, int mysock)
     {
-    int client_fd;
+        int client_fd;
         int sock = mysock;
         while (1) {
             start:
@@ -65,7 +67,8 @@ public: int sendstring(char* tosend, char* reply) {
         valread = read(sock, reply, 1024);
         printf("%s\n", reply);
         return 0;
-    }
+}
+
 public: std::string teststring(std::string tosend) {
     std::string massage = "recived" + tosend + " and yeap i got it";
     return massage;
