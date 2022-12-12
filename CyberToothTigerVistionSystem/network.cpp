@@ -8,17 +8,18 @@
 #include <sys/socket.h>
 #include <unistd.h>
 #include <thread>
+#include <cstring>
 
 class networkclass {
-    static char* IP;
+    static const char* IP;
     static int sock, valread, client_fd;
     static struct sockaddr_in serv_addr;
     static char buffer[2048];
     
 
-public: int setup(char* ServerIP, int Serversock)
+public: int setup(std::string ServerIP, int Serversock)
 {
-    IP = ServerIP;
+    IP = ServerIP.c_str();
     sock = Serversock;
     std::thread networkThread(network);
 }
